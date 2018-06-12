@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
@@ -9,11 +9,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import ImageIcon from '@material-ui/icons/Image';
 import PlayerDetails from './PlayerDetails';
-
-const byName = (a, b) => {
-  if (a.name < b.name) return -1;
-  return 1;
-};
 
 const styles = theme => ({
   root: {
@@ -53,13 +48,29 @@ class PlayerAccordion extends React.Component {
     });
   };
 
+  sortPlayers = (a, b) => {
+    const { sorting } = this.props;
+    if (a[sorting] < b[sorting]) return -1;
+    return 1;
+  }
+
+  searchFilter = (player) => {
+    const { searchTerm } = this.props;
+    const { name, teamName } = player;
+    if (!searchTerm) return player;
+    return (
+      name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      teamName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  };
+
   render() {
     const { expanded } = this.state;
     const { players, classes } = this.props;
 
     return (
-      <div className={classes.root}>
-        { players.sort(byName).map(player => (
+      <Fragment>
+        { players.filter(this.searchFilter).sort(this.sortPlayers).map(player => (
           <ExpansionPanel
             key={player.playerId}
             expanded={expanded === player.playerId}
@@ -83,7 +94,7 @@ class PlayerAccordion extends React.Component {
             </ExpansionPanelDetails>
           </ExpansionPanel>
         ))}
-      </div>
+      </Fragment>
     );
   }
 }
@@ -91,6 +102,8 @@ class PlayerAccordion extends React.Component {
 PlayerAccordion.propTypes = {
   players: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)).isRequired,
   classes: PropTypes.objectOf(PropTypes.any).isRequired,
+  sorting: PropTypes.string.isRequired,
+  searchTerm: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(PlayerAccordion);

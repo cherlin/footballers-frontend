@@ -6,10 +6,8 @@ import Main from './Main';
 const App = () => (
   <React.Fragment>
     <CssBaseline />
-    <div className="document-wrapper">
-      <Header />
-      <Main />
-    </div>
+    <Header />
+    <Main />
   </React.Fragment>
 );
 
