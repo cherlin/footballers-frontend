@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import PlayerAccordion from './PlayerAccordion';
 
 export default class Main extends Component {
   constructor() {
@@ -16,10 +17,9 @@ export default class Main extends Component {
     const { players } = this.state;
 
     return (
-      <div>
-        <h1>Main</h1>
-        { players.map(player => <div key={player.playerId}>{player.name}</div>) }
-      </div>
+      <Fragment>
+        <PlayerAccordion players={players} />
+      </Fragment>
     );
   }
 }
