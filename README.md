@@ -1,6 +1,6 @@
 # Footballers Frontend
 
-Frontend for the [Footballers Server](https://github.com/cherlin/footballers-server).
+Frontend for the [Footballers Server](https://github.com/cherlin/footballers-server). Bootstrapped with create-react-app (see readme below).
 
 ## How to use
 1. Clone the repo. ```git clone https://github.com/cherlin/footballers-frontend```
