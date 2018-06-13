@@ -1,3 +1,19 @@
+# Footballers Frontend
+
+Frontend for the [Footballers Server](https://github.com/cherlin/footballers-server).
+
+## How to use
+1. Clone the repo. ```git clone https://github.com/cherlin/footballers-frontend```
+2. Change into the directory.
+3. Run ```yarn install``` or ```npm install``` 
+4. Run ```yarn start``` or ```npm start``` to start the development server on localhost:3000.
+
+The Main.js container calls the API for player data. It assumes that you are running the Footballers Server at localhost:1337. 
+
+---
+
+# CREATE-REACT-APP Boilerplate Readme.
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>

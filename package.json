@@ -1,5 +1,6 @@
 {
-  "name": "one-agency-code-test-frontend",
+  "name": "footballers-frontend",
+  "description": "Footballers Frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
