@@ -42,6 +42,8 @@ function Sorter({ classes, onSort, sorting }) {
 
 Sorter.propTypes = {
   classes: PropTypes.objectOf(PropTypes.any).isRequired,
+  onSort: PropTypes.func.isRequired,
+  sorting: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(Sorter);

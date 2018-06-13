@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
-import ImageIcon from '@material-ui/icons/Image';
 import PlayerDetails from './PlayerDetails';
 
 const styles = theme => ({
@@ -21,6 +20,7 @@ const styles = theme => ({
   avatar: {
     marginRight: '20px',
     alignSelf: 'center',
+    backgroundColor: 'black',
   },
   heading: {
     fontSize: theme.typography.pxToRem(20),
@@ -50,7 +50,11 @@ class PlayerAccordion extends React.Component {
 
   sortPlayers = (a, b) => {
     const { sorting } = this.props;
-    if (a[sorting] < b[sorting]) return -1;
+    if (sorting === 'name') {
+      if (a.name < b.name) return -1;
+      return 1;
+    }
+    if (Number(a.ranking) < Number(b.ranking)) return -1;
     return 1;
   }
 
@@ -78,7 +82,7 @@ class PlayerAccordion extends React.Component {
           >
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
               <Avatar className={classes.avatar}>
-                <ImageIcon />
+                {player.ranking}
               </Avatar>
               <div style={{ flexDirection: 'column' }}>
                 <Typography className={classes.heading}>{player.name}</Typography>

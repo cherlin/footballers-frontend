@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import PlayerAccordion from './PlayerAccordion';
-import Sorter from './Sorter';
-import SearchBar from './SearchBar';
+import PlayerAccordion from '../components/PlayerAccordion';
+import Sorter from '../components/Sorter';
+import SearchBar from '../components/SearchBar';
 
 const styles = () => ({
   root: {
@@ -18,6 +19,12 @@ const styles = () => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  error: {
+    textAlign: 'center',
+    marginTop: '50px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
 });
 
 class Main extends Component {
@@ -27,13 +34,18 @@ class Main extends Component {
       players: [],
       sorting: 'name',
       searchTerm: '',
+      fetchError: false,
     };
   }
 
   componentDidMount() {
     fetch('http://localhost:1337/api/players')
       .then(response => response.json())
-      .then(players => this.setState({ players }));
+      .then(players => this.setState({ players }))
+      .catch((error) => {
+        this.setState({ fetchError: true });
+        console.error(error);
+      });
   }
 
   onSorting = (event) => {
@@ -45,8 +57,22 @@ class Main extends Component {
   }
 
   render() {
-    const { players, sorting, searchTerm } = this.state;
+    const {
+      players,
+      sorting,
+      searchTerm,
+      fetchError,
+    } = this.state;
     const { classes } = this.props;
+
+    if (fetchError) {
+      return (
+        <div className={classes.error}>
+          <Typography variant="display2">An error occurred.</Typography>
+          <Typography variant="subheading">Make sure the server is running.</Typography>
+        </div>
+      );
+    }
 
     return (
       <div className={classes.root}>
